@@ -16,12 +16,14 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody2D>();
     }
 
+    //get input (Arrows Keys & WASD keys)
     void GetInput()
     {
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
     }
 
+    // If enemy collide with the player, player dies
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
@@ -44,6 +46,7 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
+        // player movement using physics (Rigidbody)
         playerRb.MovePosition(playerRb.position + movement.normalized * (moveSpeed * Time.fixedDeltaTime));
     }
 
@@ -51,8 +54,11 @@ public class PlayerController : MonoBehaviour
     {
         if (cam is null)
             return;
+        //Transforms position from world space into screen space.
         var dir  = Input.mousePosition - cam.WorldToScreenPoint(transform.position);
+        //Return value is the angle between the x-axis and a 2D vector starting at zero and terminating at (x,y).
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+        //Creates a rotation which rotates angle degrees around axis.
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemies : Enemy
 {
+    // AI chase system with enemy to player
     public float stopDistance;
 
     private void Update()
